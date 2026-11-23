@@ -7,7 +7,7 @@
     $isDashboard = $variant === 'dashboard' && ! $isStudent;
 @endphp
 
-<header class="sticky top-0 z-40 w-full border-b border-[#E2EDF5] bg-white/95 backdrop-blur-xl">
+<header class="sticky top-0 z-40 w-full border-b border-[#DCEAF5] bg-gradient-to-br from-[#EAF5FF] via-[#F2F8FD] to-white">
     <div class="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-10">
 
         {{-- Logo --}}
@@ -22,7 +22,7 @@
         </a>
 
         {{-- ========================================== --}}
-        {{-- NAVBAR DASHBOARD ADMIN DAN ORGANIZER       --}}
+        {{-- ADMIN AND ORGANIZER DASHBOARD NAVBAR       --}}
         {{-- ========================================== --}}
         @if ($isDashboard)
 
@@ -30,7 +30,7 @@
 
                 <button type="button"
                     class="relative flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 transition hover:bg-sky-50 hover:text-sky-500"
-                    aria-label="Notifikasi">
+                    aria-label="Notifications">
 
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
@@ -49,11 +49,11 @@
 
                     <div class="hidden text-left sm:block">
                         <p class="text-sm font-bold text-slate-800">
-                            {{ auth()->user()->name ?? 'Pengguna' }}
+                            {{ auth()->user()->name ?? 'User' }}
                         </p>
 
                         <p class="text-xs text-slate-400">
-                            {{ ucfirst(auth()->user()->role ?? 'Pengguna') }}
+                            {{ ucfirst(auth()->user()->role ?? 'User') }}
                         </p>
                     </div>
                 </div>
@@ -61,47 +61,47 @@
             </div>
 
         {{-- ========================================== --}}
-        {{-- NAVBAR STUDENT                             --}}
+        {{-- STUDENT NAVBAR                             --}}
         {{-- ========================================== --}}
         @elseif ($isStudent)
 
-            {{-- Menu Desktop --}}
+            {{-- Desktop Menu --}}
             <nav class="hidden items-center gap-8 md:flex">
 
                 <a href="{{ url('/') }}"
                     class="text-sm font-semibold transition
                     {{ request()->is('student/home') || request()->is('/') ? 'text-[#478FC2]' : 'text-slate-600 hover:text-[#478FC2]' }}">
-                    Beranda
+                    Home
                 </a>
 
                 <a href="{{ url('/student/opportunities') }}"
                     class="text-sm font-medium transition
                     {{ request()->is('student/opportunities*') ? 'text-[#478FC2]' : 'text-slate-600 hover:text-[#478FC2]' }}">
-                    Jelajahi Peluang
+                    Explore Opportunities
                 </a>
 
                 <a href="{{ url('/about') }}"
                     class="text-sm font-medium transition
                     {{ request()->is('about') ? 'text-[#478FC2]' : 'text-slate-600 hover:text-[#478FC2]' }}">
-                    Tentang Kami
+                    About Us
                 </a>
 
             </nav>
 
-            {{-- Dropdown Akun Student --}}
+            {{-- Student Account Dropdown --}}
             <details class="group relative">
 
                 <summary
                     class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-xl border border-[#DCEAF5] bg-[#F2F8FD] text-[#477FA8] transition hover:bg-[#E5F1FC] [&::-webkit-details-marker]:hidden"
-                    aria-label="Buka menu akun">
+                    aria-label="Open account menu">
 
-                    {{-- Icon Hamburger --}}
+                    {{-- Hamburger Icon --}}
                     <svg class="h-6 w-6 group-open:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
 
-                    {{-- Icon Close --}}
+                    {{-- Close Icon --}}
                     <svg class="hidden h-6 w-6 group-open:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M6 18L18 6M6 6l12 12"/>
@@ -112,7 +112,7 @@
                 {{-- Dropdown Menu --}}
                 <div class="absolute right-0 top-14 z-50 w-[290px] overflow-hidden rounded-2xl border border-[#DCEAF5] bg-white shadow-xl shadow-slate-200/60">
 
-                    {{-- Informasi Akun --}}
+                    {{-- Account Information --}}
                     <div class="bg-gradient-to-r from-[#DCEEFF] to-[#EDF6FC] p-5">
                         <div class="flex items-center gap-3">
 
@@ -137,58 +137,58 @@
                         </div>
                     </div>
 
-                    {{-- Daftar Menu --}}
+                    {{-- Menu List --}}
                     <div class="p-2">
 
-                        {{-- Beranda --}}
+                        {{-- Home --}}
                         <a href="{{ url('/') }}"
                             class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition
                             {{ request()->is('student/home') || request()->is('/') ? 'bg-[#F0F7FC] text-[#397DAE]' : 'text-slate-600 hover:bg-[#F0F7FC] hover:text-[#397DAE]' }}">
 
                             <span class="w-5 text-center">⌂</span>
-                            Beranda
+                            Home
                         </a>
 
-                        {{-- Jelajahi Peluang --}}
+                        {{-- Explore Opportunities --}}
                         <a href="{{ url('/student/opportunities') }}"
                             class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition
                             {{ request()->is('student/opportunities*') ? 'bg-[#F0F7FC] text-[#397DAE]' : 'text-slate-600 hover:bg-[#F0F7FC] hover:text-[#397DAE]' }}">
 
                             <span class="w-5 text-center">✦</span>
-                            Jelajahi Peluang
+                            Explore Opportunities
                         </a>
 
-                        {{-- Peluang Tersimpan --}}
+                        {{-- Saved Opportunities --}}
                         <a href="{{ url('/student/saved') }}"
                             class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-[#F0F7FC] hover:text-[#397DAE]">
 
                             <span class="w-5 text-center">♡</span>
-                            Peluang Tersimpan
+                            Saved Opportunities
                         </a>
 
-                        {{-- Pendaftaran Saya --}}
+                        {{-- My Applications --}}
                         <a href="{{ url('/student/applications') }}"
                             class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-[#F0F7FC] hover:text-[#397DAE]">
 
                             <span class="w-5 text-center">▤</span>
-                            Pendaftaran Saya
+                            My Applications
                         </a>
 
-                        {{-- Notifikasi --}}
+                        {{-- Notifications --}}
                         <a href="{{ url('/student/notifications') }}"
                             class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-[#F0F7FC] hover:text-[#397DAE]">
 
                             <span class="w-5 text-center">♧</span>
-                            Notifikasi
+                            Notifications
                         </a>
 
-                        {{-- Profil --}}
+                        {{-- Profile --}}
                         <a href="{{ url('/student/profile') }}"
                             class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition
                             {{ request()->is('student/profile*') ? 'bg-[#F0F7FC] text-[#397DAE]' : 'text-slate-600 hover:bg-[#F0F7FC] hover:text-[#397DAE]' }}">
 
                             <span class="w-5 text-center">♙</span>
-                            Profil Saya
+                            My Profile
                         </a>
 
                     </div>
@@ -203,7 +203,7 @@
                                 class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-rose-500 transition hover:bg-rose-50">
 
                                 <span class="w-5 text-center">↪</span>
-                                Keluar
+                                Log Out
 
                             </button>
                         </form>
@@ -214,7 +214,7 @@
             </details>
 
         {{-- ========================================== --}}
-        {{-- NAVBAR PENGUNJUNG                          --}}
+        {{-- GUEST NAVBAR                               --}}
         {{-- ========================================== --}}
         @else
 
@@ -222,17 +222,17 @@
 
                 <a href="{{ url('/') }}"
                     class="text-sm font-semibold text-[#478FC2] transition hover:text-[#397DAE]">
-                    Beranda
+                    Home
                 </a>
 
                 <a href="{{ url('/opportunities') }}"
                     class="text-sm font-medium text-slate-600 transition hover:text-[#478FC2]">
-                    Peluang
+                    Opportunities
                 </a>
 
                 <a href="{{ url('/about') }}"
                     class="text-sm font-medium text-slate-600 transition hover:text-[#478FC2]">
-                    Tentang Kami
+                    About Us
                 </a>
 
             </nav>
@@ -241,12 +241,12 @@
 
                 <a href="{{ url('/login') }}"
                     class="hidden rounded-xl px-5 py-2.5 text-sm font-bold text-[#478FC2] transition hover:bg-[#F0F7FC] sm:inline-flex">
-                    Masuk
+                    Log In
                 </a>
 
                 <a href="{{ url('/register') }}"
                     class="inline-flex items-center rounded-xl bg-[#65A9D8] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#5599C9]">
-                    Daftar
+                    Sign Up
                 </a>
 
             </div>
