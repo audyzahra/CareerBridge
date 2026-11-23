@@ -7,6 +7,11 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LogoutController;
 
+use App\Http\Controllers\SuperAdmin\DashboardController;
+use App\Http\Controllers\SuperAdmin\UserController;
+use App\Http\Controllers\SuperAdmin\OrganizerController;
+use App\Http\Controllers\SuperAdmin\OpportunityController;
+
 
 // ==========================================
 // HALAMAN UTAMA CAREERBRIDGE
@@ -33,7 +38,9 @@ Route::get('/', function () {
 // ==========================================
 
 Route::get('/opportunities', function () {
-    return 'Halaman Jelajahi Peluang';
+    return view('public.opportunities.index', [
+        'opportunities' => collect(),
+    ]);
 })->name('opportunities.index');
 
 Route::view('/about', 'public.about.index')
@@ -80,21 +87,37 @@ Route::prefix('super-admin')
     ->middleware(['auth', 'role:super_admin'])
     ->group(function () {
 
-        Route::get('/dashboard', function () {
-            return view('super-admin.dashboard');
-        })->name('dashboard');
+        // Dashboard
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+            ->name('dashboard');
 
-        Route::get('/users', fn () => 'Halaman Kelola Pengguna')
-            ->name('users.index');
+        // User Management
+        Route::resource('users', UserController::class)
+            ->except(['show']);
 
-        Route::get('/organizers', fn () => 'Halaman Kelola Organizer')
-            ->name('organizers.index');
+        // Organizer Management
+        Route::resource('organizers', OrganizerController::class)
+            ->only(['index', 'show']);
 
-        Route::get('/opportunities', fn () => 'Halaman Kelola Peluang')
-            ->name('opportunities.index');
+        Route::patch('/organizers/{organizer}/verification', [
+            OrganizerController::class,
+            'updateVerification'
+        ])->name('organizers.update-verification');
 
-        Route::get('/settings', fn () => 'Halaman Pengaturan')
-            ->name('settings');
+        // Opportunity Management
+        Route::resource('opportunities', OpportunityController::class)
+            ->only(['index', 'show']);
+
+        Route::patch('/opportunities/{opportunity}/publication-status', [
+            OpportunityController::class,
+            'updatePublicationStatus'
+        ])->name('opportunities.update-publication-status');
+
+        Route::patch('/opportunities/{opportunity}/verification-status', [
+            OpportunityController::class,
+            'updateVerificationStatus'
+        ])->name('opportunities.update-verification-status');
+
     });
 
 
