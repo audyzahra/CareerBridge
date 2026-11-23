@@ -1,0 +1,129 @@
+/* =====================================================
+   CAREERBRIDGE - OPPORTUNITIES PAGE
+   File: public/css/opportunities.css
+   ===================================================== */
+
+/* Hero and category icon motion */
+@keyframes opportunities-float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes opportunities-pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: .55;
+        transform: scale(.82);
+    }
+}
+
+.opportunity-category-card,
+.opportunity-card {
+    transform: translateZ(0);
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
+}
+
+.opportunity-category-icon,
+.opportunity-card-icon {
+    transition:
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        box-shadow .35s ease;
+}
+
+.opportunity-category-card:hover .opportunity-category-icon,
+.opportunity-card:hover .opportunity-card-icon {
+    transform: translateY(-4px) rotate(-5deg) scale(1.07);
+    box-shadow: 0 9px 18px rgba(101, 169, 216, .14);
+}
+
+.opportunity-arrow {
+    transition: transform .3s ease;
+}
+
+a:hover .opportunity-arrow {
+    transform: translateX(4px);
+}
+
+.opportunity-search-icon {
+    transition: transform .3s ease, color .3s ease;
+}
+
+form:focus-within .opportunity-search-icon {
+    color: #478FC2;
+    transform: scale(1.08);
+}
+
+.opportunity-meta-icon {
+    transition: transform .25s ease;
+}
+
+.opportunity-card:hover .opportunity-meta-icon {
+    transform: translateY(-2px);
+}
+
+.opportunity-empty-icon {
+    animation: opportunities-float 3.5s ease-in-out infinite;
+}
+
+.opportunity-card {
+    animation: opportunities-card-enter .45s ease both;
+}
+
+@keyframes opportunities-card-enter {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.opportunity-card:nth-child(2) {
+    animation-delay: .05s;
+}
+
+.opportunity-card:nth-child(3) {
+    animation-delay: .1s;
+}
+
+.opportunity-card:nth-child(4) {
+    animation-delay: .15s;
+}
+
+.opportunity-card:nth-child(5) {
+    animation-delay: .2s;
+}
+
+.opportunity-card:nth-child(6) {
+    animation-delay: .25s;
+}
+
+/* Accessibility: respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .opportunity-category-card,
+    .opportunity-card,
+    .opportunity-category-icon,
+    .opportunity-card-icon,
+    .opportunity-arrow,
+    .opportunity-search-icon,
+    .opportunity-meta-icon,
+    .opportunity-empty-icon {
+        animation: none !important;
+        transition: none !important;
+    }
+}
