@@ -4,11 +4,12 @@
     <div class="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-white/35 blur-2xl"></div>
     <div class="pointer-events-none absolute -bottom-16 -left-12 h-48 w-48 rounded-full bg-[#A9D5F1]/35 blur-3xl"></div>
 
+
     {{-- Brand --}}
     <div class="relative border-b border-white/70 px-6 py-6">
 
-        <a href="{{ url('/super-admin/dashboard') }}"
-            class="flex items-center gap-3">
+        <a href="{{ route('super-admin.dashboard') }}"
+           class="flex items-center gap-3">
 
             <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#65B5E8] to-[#5799CE] text-lg font-extrabold text-white shadow-lg shadow-blue-200/70">
                 C
@@ -26,6 +27,7 @@
 
         </a>
 
+
         {{-- Admin Label --}}
         <div class="mt-5 flex items-center gap-3 rounded-xl border border-white/80 bg-white/65 px-3 py-2.5 shadow-sm shadow-blue-100/40">
 
@@ -37,6 +39,7 @@
                 <p class="text-[10px] font-bold uppercase tracking-wider text-[#89A1B5]">
                     Panel
                 </p>
+
                 <p class="text-xs font-bold text-[#456680]">
                     Administration
                 </p>
@@ -49,27 +52,27 @@
     </div>
 
 
-    {{-- Navigation --}}
+    {{-- Main Navigation --}}
     <nav class="relative flex-1 space-y-1.5 overflow-y-auto px-4 py-6">
 
         <p class="mb-4 px-3 text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#829DB3]">
-            Menu Utama
+            Main Menu
         </p>
 
 
         {{-- Dashboard --}}
-        <a href="{{ url('/super-admin/dashboard') }}"
-            class="group relative flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-all duration-200
-            {{ request()->is('super-admin/dashboard')
+        <a href="{{ route('super-admin.dashboard') }}"
+           class="group relative flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-all duration-200
+           {{ request()->routeIs('super-admin.dashboard')
                 ? 'bg-white/90 text-[#397FAF] shadow-md shadow-blue-200/50 ring-1 ring-white'
                 : 'text-[#59758D] hover:bg-white/65 hover:text-[#397FAF]' }}">
 
-            @if(request()->is('super-admin/dashboard'))
+            @if(request()->routeIs('super-admin.dashboard'))
                 <span class="absolute bottom-2 left-0 top-2 w-1 rounded-r-full bg-[#5BA9DF]"></span>
             @endif
 
             <span class="flex h-9 w-9 items-center justify-center rounded-xl
-                {{ request()->is('super-admin/dashboard')
+                {{ request()->routeIs('super-admin.dashboard')
                     ? 'bg-[#DCEEFF] text-[#438FC2]'
                     : 'bg-white/70 text-[#689BBE] group-hover:bg-[#DCEEFF]' }}">
                 ▦
@@ -77,109 +80,90 @@
 
             Dashboard
 
-            @if(request()->is('super-admin/dashboard'))
+            @if(request()->routeIs('super-admin.dashboard'))
                 <span class="ml-auto h-2 w-2 rounded-full bg-[#63A9D8]"></span>
             @endif
 
         </a>
 
 
-        {{-- Kelola Pengguna --}}
-        <a href="{{ url('/super-admin/users') }}"
-            class="group relative flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-all duration-200
-            {{ request()->is('super-admin/users*')
+        {{-- User Management --}}
+        <a href="{{ route('super-admin.users.index') }}"
+           class="group relative flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-all duration-200
+           {{ request()->routeIs('super-admin.users.*')
                 ? 'bg-white/90 text-[#397FAF] shadow-md shadow-blue-200/50 ring-1 ring-white'
                 : 'text-[#59758D] hover:bg-white/65 hover:text-[#397FAF]' }}">
 
-            @if(request()->is('super-admin/users*'))
+            @if(request()->routeIs('super-admin.users.*'))
                 <span class="absolute bottom-2 left-0 top-2 w-1 rounded-r-full bg-[#5BA9DF]"></span>
             @endif
 
             <span class="flex h-9 w-9 items-center justify-center rounded-xl
-                {{ request()->is('super-admin/users*')
+                {{ request()->routeIs('super-admin.users.*')
                     ? 'bg-[#DCEEFF] text-[#438FC2]'
                     : 'bg-white/70 text-[#689BBE] group-hover:bg-[#DCEEFF]' }}">
                 ♙
             </span>
 
-            Kelola Pengguna
+            User Management
+
+            @if(request()->routeIs('super-admin.users.*'))
+                <span class="ml-auto h-2 w-2 rounded-full bg-[#63A9D8]"></span>
+            @endif
 
         </a>
 
 
-        {{-- Kelola Organizer --}}
-        <a href="{{ url('/super-admin/organizers') }}"
-            class="group relative flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-all duration-200
-            {{ request()->is('super-admin/organizers*')
+        {{-- Organizer Management --}}
+        <a href="{{ route('super-admin.organizers.index') }}"
+           class="group relative flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-all duration-200
+           {{ request()->routeIs('super-admin.organizers.*')
                 ? 'bg-white/90 text-[#397FAF] shadow-md shadow-blue-200/50 ring-1 ring-white'
                 : 'text-[#59758D] hover:bg-white/65 hover:text-[#397FAF]' }}">
 
-            @if(request()->is('super-admin/organizers*'))
+            @if(request()->routeIs('super-admin.organizers.*'))
                 <span class="absolute bottom-2 left-0 top-2 w-1 rounded-r-full bg-[#5BA9DF]"></span>
             @endif
 
             <span class="flex h-9 w-9 items-center justify-center rounded-xl
-                {{ request()->is('super-admin/organizers*')
+                {{ request()->routeIs('super-admin.organizers.*')
                     ? 'bg-[#DCEEFF] text-[#438FC2]'
                     : 'bg-white/70 text-[#689BBE] group-hover:bg-[#DCEEFF]' }}">
                 ▣
             </span>
 
-            Kelola Organizer
+            Organizer Management
+
+            @if(request()->routeIs('super-admin.organizers.*'))
+                <span class="ml-auto h-2 w-2 rounded-full bg-[#63A9D8]"></span>
+            @endif
 
         </a>
 
 
-        {{-- Kelola Peluang --}}
-        <a href="{{ url('/super-admin/opportunities') }}"
-            class="group relative flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-all duration-200
-            {{ request()->is('super-admin/opportunities*')
+        {{-- Opportunity Management --}}
+        <a href="{{ route('super-admin.opportunities.index') }}"
+           class="group relative flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-all duration-200
+           {{ request()->routeIs('super-admin.opportunities.*')
                 ? 'bg-white/90 text-[#397FAF] shadow-md shadow-blue-200/50 ring-1 ring-white'
                 : 'text-[#59758D] hover:bg-white/65 hover:text-[#397FAF]' }}">
 
-            @if(request()->is('super-admin/opportunities*'))
+            @if(request()->routeIs('super-admin.opportunities.*'))
                 <span class="absolute bottom-2 left-0 top-2 w-1 rounded-r-full bg-[#5BA9DF]"></span>
             @endif
 
             <span class="flex h-9 w-9 items-center justify-center rounded-xl
-                {{ request()->is('super-admin/opportunities*')
+                {{ request()->routeIs('super-admin.opportunities.*')
                     ? 'bg-[#DCEEFF] text-[#438FC2]'
                     : 'bg-white/70 text-[#689BBE] group-hover:bg-[#DCEEFF]' }}">
                 ✦
             </span>
 
-            Kelola Peluang
+            Opportunity Management
 
-        </a>
-
-
-        {{-- Divider --}}
-        <div class="my-7 border-t border-white/80"></div>
-
-
-        {{-- Settings --}}
-        <p class="mb-4 px-3 text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#829DB3]">
-            Pengaturan
-        </p>
-
-        <a href="{{ url('/super-admin/settings') }}"
-            class="group relative flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-all duration-200
-            {{ request()->is('super-admin/settings*')
-                ? 'bg-white/90 text-[#397FAF] shadow-md shadow-blue-200/50 ring-1 ring-white'
-                : 'text-[#59758D] hover:bg-white/65 hover:text-[#397FAF]' }}">
-
-            @if(request()->is('super-admin/settings*'))
-                <span class="absolute bottom-2 left-0 top-2 w-1 rounded-r-full bg-[#5BA9DF]"></span>
+            @if(request()->routeIs('super-admin.opportunities.*'))
+                <span class="ml-auto h-2 w-2 rounded-full bg-[#63A9D8]"></span>
             @endif
-
-            <span class="flex h-9 w-9 items-center justify-center rounded-xl
-                {{ request()->is('super-admin/settings*')
-                    ? 'bg-[#DCEEFF] text-[#438FC2]'
-                    : 'bg-white/70 text-[#689BBE] group-hover:bg-[#DCEEFF]' }}">
-                ⚙
-            </span>
-
-            Pengaturan
 
         </a>
 
@@ -192,6 +176,7 @@
         <div class="absolute -right-5 -top-5 h-20 w-20 rounded-full bg-white/40"></div>
 
         <div class="relative flex items-center gap-2">
+
             <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-white/80 text-[#559BCB] shadow-sm">
                 ✨
             </div>
@@ -199,10 +184,11 @@
             <p class="text-xs font-bold text-[#426987]">
                 CareerBridge
             </p>
+
         </div>
 
         <p class="relative mt-2 text-[11px] leading-relaxed text-[#6D8CA5]">
-            Menghubungkan potensi dengan peluang masa depan.
+            Connecting potential with opportunities for a brighter future.
         </p>
 
     </div>
@@ -211,7 +197,7 @@
     {{-- Logout --}}
     <div class="relative border-t border-white/70 p-4">
 
-        <form action="{{ url('/logout') }}" method="POST">
+        <form action="{{ route('logout') }}" method="POST">
             @csrf
 
             <button type="submit"
@@ -221,7 +207,7 @@
                     ↪
                 </span>
 
-                Keluar
+                Logout
 
             </button>
 
