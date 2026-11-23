@@ -3,16 +3,16 @@
 @section('title', 'Login - CareerBridge')
 
 @section('body')
-<div class="min-h-screen bg-white flex items-center justify-center px-4 py-12 relative overflow-hidden">
+<div class="min-h-screen bg-gradient-to-br from-[#EAF5FF] via-[#F2F8FD] to-white flex items-center justify-center px-4 py-12 relative overflow-hidden">
 
     {{-- Background Decorations --}}
-    <div class="absolute -top-32 -left-32 w-96 h-96 bg-sky-100 rounded-full blur-3xl opacity-70"></div>
-    <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-cyan-100 rounded-full blur-3xl opacity-70"></div>
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-[#DCEEFF] rounded-full blur-3xl opacity-70"></div>
+<div class="absolute -bottom-32 -right-32 w-96 h-96 bg-[#EAF5FF] rounded-full blur-3xl opacity-70"></div>
 
-    <div class="relative z-10 w-full max-w-6xl grid lg:grid-cols-2 bg-white rounded-3xl shadow-xl shadow-sky-100/60 overflow-hidden border border-sky-50">
+    <div class="relative z-10 w-full max-w-6xl grid lg:grid-cols-2 bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden border border-[#DCEAF5]">
 
         {{-- LEFT SECTION --}}
-        <div class="hidden lg:flex flex-col justify-between bg-gradient-to-br from-sky-400 via-cyan-400 to-teal-300 p-12 text-white relative overflow-hidden">
+        <div class="hidden lg:flex flex-col justify-between bg-gradient-to-br from-[#65B5E8] via-[#65A9D8] to-[#5799CE] p-12 text-white relative overflow-hidden">
 
             {{-- Decorative Circles --}}
             <div class="absolute -top-20 -right-20 w-72 h-72 rounded-full border-[40px] border-white/10"></div>
@@ -22,7 +22,7 @@
 
                 {{-- Logo --}}
                 <a href="{{ route('home') }}" class="text-3xl font-extrabold tracking-tight">
-                    Career<span class="text-emerald-100">Bridge</span>
+                    Career<span class="text-[#DCEEFF]">Bridge</span>
                 </a>
 
                 {{-- Hero Content --}}
@@ -139,7 +139,7 @@
                             autocomplete="email"
                             required
                             autofocus
-                            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100 @error('email') border-red-400 @enderror"
+                            class="w-full rounded-xl border border-[#DCEAF5] bg-[#F2F8FD] px-4 py-3.5 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#65A9D8] focus:bg-white focus:ring-4 focus:ring-[#EAF5FF] @error('email') border-red-400 @enderror"
                         >
 
                         @error('email')
@@ -163,7 +163,7 @@
                             placeholder="Masukkan password"
                             autocomplete="current-password"
                             required
-                            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100"
+                            class="w-full rounded-xl border border-[#DCEAF5] bg-[#F2F8FD] px-4 py-3.5 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#65A9D8] focus:bg-white focus:ring-4 focus:ring-[#EAF5FF]"
                         >
 
                     </div>
@@ -172,7 +172,7 @@
                     {{-- Submit Button --}}
                     <button
                         type="submit"
-                        class="w-full rounded-xl bg-gradient-to-r from-sky-400 to-cyan-400 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-sky-200/60 transition hover:-translate-y-0.5 hover:from-sky-500 hover:to-cyan-500 hover:shadow-xl active:translate-y-0"
+                        class="w-full rounded-xl bg-gradient-to-r from-[#65B5E8] to-[#65A9D8] px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#EAF5FF]/60 transition hover:-translate-y-0.5 hover:from-[#65A9D8] hover:to-[#5799CE] hover:shadow-xl active:translate-y-0"
                     >
                         Login to CareerBridge
                     </button>
@@ -186,7 +186,7 @@
                     <p class="text-sm text-slate-500">
                         Belum memiliki akun?
 
-                        <a href="{{ route('register') }}" class="font-bold text-sky-500 hover:text-cyan-500 transition">
+                        <a href="{{ route('register') }}" class="font-bold text-[#5799CE] hover:text-[#478FC2] transition">
                             Daftar sekarang
                         </a>
                     </p>

@@ -36,9 +36,8 @@ Route::get('/opportunities', function () {
     return 'Halaman Jelajahi Peluang';
 })->name('opportunities.index');
 
-Route::get('/about', function () {
-    return 'Halaman Tentang Kami';
-})->name('about');
+Route::view('/about', 'public.about.index')
+    ->name('about');
 
 
 // ==========================================
