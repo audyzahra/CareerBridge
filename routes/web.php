@@ -18,12 +18,12 @@ Route::get('/', function () {
         return match (Auth::user()->role) {
             'super_admin' => redirect()->route('super-admin.dashboard'),
             'organizer' => redirect()->route('organizer.dashboard'),
-            'student' => redirect()->route('student.home'),
+            'student' => view('public.home'),
             default => abort(403, 'Role pengguna tidak dikenali.'),
         };
     }
 
-    return view('welcome');
+    return view('public.home');
 
 })->name('home');
 
@@ -123,6 +123,7 @@ Route::prefix('organizer')
 // ==========================================
 // STUDENT
 // Tidak menggunakan dashboard
+// Menggunakan tampilan website publik
 // ==========================================
 
 Route::prefix('student')

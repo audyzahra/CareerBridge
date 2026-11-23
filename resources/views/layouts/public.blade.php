@@ -2,7 +2,7 @@
 
 @section('body')
 
-    <div class="flex min-h-screen flex-col">
+    <div class="min-h-screen flex flex-col bg-white">
 
         @include('components.partials.navbar', ['variant' => 'public'])
 

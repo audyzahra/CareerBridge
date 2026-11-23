@@ -4,7 +4,6 @@
     $isStudent = auth()->check()
         && auth()->user()->role === 'student';
 
-    // Student tidak boleh masuk ke tampilan navbar dashboard Admin/Organizer.
     $isDashboard = $variant === 'dashboard' && ! $isStudent;
 @endphp
 
