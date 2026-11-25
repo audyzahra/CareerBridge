@@ -134,8 +134,19 @@ Route::prefix('organizer')
             return view('organizer.dashboard');
         })->name('dashboard');
 
-        Route::get('/opportunities', fn () => 'Halaman Lomba Saya')
-            ->name('opportunities.index');
+        Route::get('/opportunities', function () {
+            return view('organizer.opportunities.index');
+        })->name('opportunities.index');
+
+        // Create Opportunity
+        Route::get('/opportunities/create', function () {
+            return view('organizer.opportunities.create');
+        })->name('opportunities.create');
+
+        // Edit Opportunity
+        Route::get('/opportunities/{opportunity}/edit', function () {
+            return view('organizer.opportunities.edit');
+        })->name('opportunities.edit');
 
         Route::get('/profile', fn () => 'Halaman Profil Organizer')
             ->name('profile');
