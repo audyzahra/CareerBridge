@@ -12,6 +12,9 @@ use App\Http\Controllers\SuperAdmin\UserController;
 use App\Http\Controllers\SuperAdmin\OrganizerController;
 use App\Http\Controllers\SuperAdmin\OpportunityController;
 
+use App\Http\Controllers\Organizer\OrganizerProfileController;
+use App\Http\Controllers\Organizer\OrganizerAccountSettingsController;
+
 
 // ==========================================
 // HALAMAN UTAMA CAREERBRIDGE
@@ -121,6 +124,7 @@ Route::prefix('super-admin')
     });
 
 
+
 // ==========================================
 // ORGANIZER
 // ==========================================
@@ -130,27 +134,98 @@ Route::prefix('organizer')
     ->middleware(['auth', 'role:organizer'])
     ->group(function () {
 
+        // ======================================
+        // DASHBOARD
+        // ======================================
+
         Route::get('/dashboard', function () {
             return view('organizer.dashboard');
         })->name('dashboard');
+
+
+        // ======================================
+        // MY OPPORTUNITIES
+        // Managed by another team
+        // ======================================
 
         Route::get('/opportunities', function () {
             return view('organizer.opportunities.index');
         })->name('opportunities.index');
 
-        // Create Opportunity
         Route::get('/opportunities/create', function () {
             return view('organizer.opportunities.create');
         })->name('opportunities.create');
 
-        // Edit Opportunity
-        Route::get('/opportunities/{opportunity}/edit', function () {
+        Route::get('/opportunities/{opportunity}/edit', function ($opportunity) {
             return view('organizer.opportunities.edit');
         })->name('opportunities.edit');
 
-        Route::get('/profile', fn () => 'Halaman Profil Organizer')
-            ->name('profile');
+
+        // ======================================
+        // APPLICANT MANAGEMENT
+        // ======================================
+
+        Route::get('/applicants', function () {
+            return response(
+                'Applicant Management is currently under development.',
+                501
+            );
+        })->name('applicants.index');
+
+
+        // ======================================
+        // NOTIFICATIONS
+        // ======================================
+
+        Route::get('/notifications', function () {
+            return response(
+                'Notifications are currently under development.',
+                501
+            );
+        })->name('notifications.index');
+
+
+        // ======================================
+        // ORGANIZER PROFILE
+        // ======================================
+
+        Route::get('/profile', [
+            OrganizerProfileController::class,
+            'index'
+        ])->name('profile');
+
+        Route::get('/profile/edit', [
+            OrganizerProfileController::class,
+            'edit'
+        ])->name('profile.edit');
+
+        Route::put('/profile', [
+            OrganizerProfileController::class,
+            'update'
+        ])->name('profile.update');
+
+
+        // ======================================
+        // ACCOUNT SETTINGS
+        // ======================================
+
+        Route::get('/settings', [
+            OrganizerAccountSettingsController::class,
+            'index'
+        ])->name('settings');
+
+        Route::put('/settings/profile', [
+            OrganizerAccountSettingsController::class,
+            'updateProfile'
+        ])->name('settings.update-profile');
+
+        Route::put('/settings/password', [
+            OrganizerAccountSettingsController::class,
+            'updatePassword'
+        ])->name('settings.update-password');
+
     });
+
 
 
 // ==========================================
