@@ -39,4 +39,9 @@ class Resume extends Model
     {
         return $this->hasMany(ResumeAnalysis::class);
     }
+
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
+    }
 }
