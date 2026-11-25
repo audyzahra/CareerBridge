@@ -23,7 +23,7 @@ Route::get('/', function () {
         return match (Auth::user()->role) {
             'super_admin' => redirect()->route('super-admin.dashboard'),
             'organizer' => redirect()->route('organizer.dashboard'),
-            'student' => view('public.home'),
+            'student' => redirect()->route('student.home'),
             default => abort(403, 'Role pengguna tidak dikenali.'),
         };
     }
@@ -134,8 +134,19 @@ Route::prefix('organizer')
             return view('organizer.dashboard');
         })->name('dashboard');
 
-        Route::get('/opportunities', fn () => 'Halaman Lomba Saya')
-            ->name('opportunities.index');
+        Route::get('/opportunities', function () {
+            return view('organizer.opportunities.index');
+        })->name('opportunities.index');
+
+        // Create Opportunity
+        Route::get('/opportunities/create', function () {
+            return view('organizer.opportunities.create');
+        })->name('opportunities.create');
+
+        // Edit Opportunity
+        Route::get('/opportunities/{opportunity}/edit', function () {
+            return view('organizer.opportunities.edit');
+        })->name('opportunities.edit');
 
         Route::get('/profile', fn () => 'Halaman Profil Organizer')
             ->name('profile');
@@ -147,39 +158,38 @@ Route::prefix('organizer')
 // Tidak menggunakan dashboard
 // Menggunakan tampilan website publik
 // ==========================================
-
 Route::prefix('student')
     ->name('student.')
     ->middleware(['auth', 'role:student'])
     ->group(function () {
 
-        // Beranda Student
+        // Home Student
         Route::view('/home', 'student.home')
             ->name('home');
 
-        // Jelajahi Peluang
+        // Explore Opportunities
         Route::get('/opportunities', function () {
             return view('student.opportunities.index', [
                 'opportunities' => collect(),
             ]);
         })->name('opportunities');
 
-        // Peluang Tersimpan
+        // Saved Opportunities
         Route::get('/saved', function () {
-            return 'Halaman Peluang Tersimpan';
+            return view('student.saved.index');
         })->name('saved');
 
-        // Pendaftaran Saya
+        // My Applications
         Route::get('/applications', function () {
-            return 'Halaman Pendaftaran Saya';
+            return view('student.applications.index');
         })->name('applications');
 
-        // Notifikasi
+        // Notifications
         Route::get('/notifications', function () {
-            return 'Halaman Notifikasi';
+            return view('student.notifications.index');
         })->name('notifications');
 
-        // Profil Saya
+        // My Profile
         Route::view('/profile', 'student.profile.index')
             ->name('profile');
 
