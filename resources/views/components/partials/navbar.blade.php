@@ -63,39 +63,44 @@
         {{-- ========================================== --}}
         {{-- STUDENT NAVBAR                             --}}
         {{-- ========================================== --}}
+
+        {{-- ========================================== --}}
+        {{-- STUDENT NAVBAR                             --}}
+        {{-- ========================================== --}}
         @elseif ($isStudent)
 
-            {{-- Desktop Menu --}}
+            {{-- Desktop Navigation --}}
             <nav class="hidden items-center gap-8 md:flex">
 
-                <a href="{{ url('/') }}"
+                <a href="{{ route('student.home') }}"
                     class="text-sm font-semibold transition
-                    {{ request()->is('student/home') || request()->is('/') ? 'text-[#478FC2]' : 'text-slate-600 hover:text-[#478FC2]' }}">
+                    {{ request()->routeIs('student.home') ? 'text-[#478FC2]' : 'text-slate-600 hover:text-[#478FC2]' }}">
                     Home
                 </a>
 
-                <a href="{{ url('/student/opportunities') }}"
+                <a href="{{ route('student.opportunities') }}"
                     class="text-sm font-medium transition
-                    {{ request()->is('student/opportunities*') ? 'text-[#478FC2]' : 'text-slate-600 hover:text-[#478FC2]' }}">
+                    {{ request()->routeIs('student.opportunities') ? 'text-[#478FC2]' : 'text-slate-600 hover:text-[#478FC2]' }}">
                     Explore Opportunities
                 </a>
 
-                <a href="{{ url('/about') }}"
+                <a href="{{ route('about') }}"
                     class="text-sm font-medium transition
-                    {{ request()->is('about') ? 'text-[#478FC2]' : 'text-slate-600 hover:text-[#478FC2]' }}">
+                    {{ request()->routeIs('about') ? 'text-[#478FC2]' : 'text-slate-600 hover:text-[#478FC2]' }}">
                     About Us
                 </a>
 
             </nav>
 
-            {{-- Student Account Dropdown --}}
+            {{-- Student Menu Dropdown --}}
             <details class="group relative">
 
+                {{-- Hamburger Button --}}
                 <summary
                     class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-xl border border-[#DCEAF5] bg-[#F2F8FD] text-[#477FA8] transition hover:bg-[#E5F1FC] [&::-webkit-details-marker]:hidden"
-                    aria-label="Open account menu">
+                    aria-label="Open student menu">
 
-                    {{-- Hamburger Icon --}}
+                    {{-- Menu Icon --}}
                     <svg class="h-6 w-6 group-open:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16"/>
@@ -109,11 +114,12 @@
 
                 </summary>
 
-                {{-- Dropdown Menu --}}
-                <div class="absolute right-0 top-14 z-50 w-[290px] overflow-hidden rounded-2xl border border-[#DCEAF5] bg-white shadow-xl shadow-slate-200/60">
+                {{-- Dropdown Panel --}}
+                <div class="absolute right-0 top-14 z-50 w-[310px] overflow-hidden rounded-2xl border border-[#DCEAF5] bg-white shadow-xl shadow-slate-200/60">
 
-                    {{-- Account Information --}}
+                    {{-- Student Information --}}
                     <div class="bg-gradient-to-r from-[#DCEEFF] to-[#EDF6FC] p-5">
+
                         <div class="flex items-center gap-3">
 
                             <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#65B5E8] to-[#5799CE] text-lg font-extrabold text-white shadow-sm">
@@ -135,59 +141,91 @@
                             </div>
 
                         </div>
+
                     </div>
 
-                    {{-- Menu List --}}
+                    {{-- Student Menu --}}
                     <div class="p-2">
 
                         {{-- Home --}}
-                        <a href="{{ url('/') }}"
-                            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition
-                            {{ request()->is('student/home') || request()->is('/') ? 'bg-[#F0F7FC] text-[#397DAE]' : 'text-slate-600 hover:bg-[#F0F7FC] hover:text-[#397DAE]' }}">
+                        <a href="{{ route('student.home') }}"
+                            class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition
+                            {{ request()->routeIs('student.home') ? 'bg-[#F0F7FC] text-[#397DAE]' : 'text-slate-600 hover:bg-[#F0F7FC] hover:text-[#397DAE]' }}">
 
-                            <span class="w-5 text-center">⌂</span>
+                            <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1V10Z"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+
                             Home
                         </a>
 
                         {{-- Explore Opportunities --}}
-                        <a href="{{ url('/student/opportunities') }}"
-                            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition
-                            {{ request()->is('student/opportunities*') ? 'bg-[#F0F7FC] text-[#397DAE]' : 'text-slate-600 hover:bg-[#F0F7FC] hover:text-[#397DAE]' }}">
+                        <a href="{{ route('student.opportunities') }}"
+                            class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition
+                            {{ request()->routeIs('student.opportunities') ? 'bg-[#F0F7FC] text-[#397DAE]' : 'text-slate-600 hover:bg-[#F0F7FC] hover:text-[#397DAE]' }}">
 
-                            <span class="w-5 text-center">✦</span>
+                            <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="m12 3 2.2 6.8L21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2L12 3Z"
+                                    stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+
                             Explore Opportunities
                         </a>
 
                         {{-- Saved Opportunities --}}
-                        <a href="{{ url('/student/saved') }}"
-                            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-[#F0F7FC] hover:text-[#397DAE]">
+                        <a href="{{ route('student.saved') }}"
+                            class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition
+                            {{ request()->routeIs('student.saved') ? 'bg-[#F0F7FC] text-[#397DAE]' : 'text-slate-600 hover:bg-[#F0F7FC] hover:text-[#397DAE]' }}">
 
-                            <span class="w-5 text-center">♡</span>
+                            <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.8 8.8c0 5.2-8.8 10.2-8.8 10.2S3.2 14 3.2 8.8A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+
                             Saved Opportunities
                         </a>
 
                         {{-- My Applications --}}
-                        <a href="{{ url('/student/applications') }}"
-                            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-[#F0F7FC] hover:text-[#397DAE]">
+                        <a href="{{ route('student.applications') }}"
+                            class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition
+                            {{ request()->routeIs('student.applications') ? 'bg-[#F0F7FC] text-[#397DAE]' : 'text-slate-600 hover:bg-[#F0F7FC] hover:text-[#397DAE]' }}">
 
-                            <span class="w-5 text-center">▤</span>
+                            <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M7 3h7l5 5v13H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 3v5h5M9 13h6M9 17h6"
+                                    stroke-width="1.8" stroke-linecap="round"/>
+                            </svg>
+
                             My Applications
                         </a>
 
                         {{-- Notifications --}}
-                        <a href="{{ url('/student/notifications') }}"
-                            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-[#F0F7FC] hover:text-[#397DAE]">
+                        <a href="{{ route('student.notifications') }}"
+                            class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition
+                            {{ request()->routeIs('student.notifications') ? 'bg-[#F0F7FC] text-[#397DAE]' : 'text-slate-600 hover:bg-[#F0F7FC] hover:text-[#397DAE]' }}">
 
-                            <span class="w-5 text-center">♧</span>
+                            <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10 21h4" stroke-width="1.8" stroke-linecap="round"/>
+                            </svg>
+
                             Notifications
                         </a>
 
-                        {{-- Profile --}}
-                        <a href="{{ url('/student/profile') }}"
-                            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition
-                            {{ request()->is('student/profile*') ? 'bg-[#F0F7FC] text-[#397DAE]' : 'text-slate-600 hover:bg-[#F0F7FC] hover:text-[#397DAE]' }}">
+                        {{-- My Profile --}}
+                        <a href="{{ route('student.profile') }}"
+                            class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition
+                            {{ request()->routeIs('student.profile') ? 'bg-[#F0F7FC] text-[#397DAE]' : 'text-slate-600 hover:bg-[#F0F7FC] hover:text-[#397DAE]' }}">
 
-                            <span class="w-5 text-center">♙</span>
+                            <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <circle cx="12" cy="8" r="4" stroke-width="1.8"/>
+                                <path d="M4 21a8 8 0 0 1 16 0"
+                                    stroke-width="1.8" stroke-linecap="round"/>
+                            </svg>
+
                             My Profile
                         </a>
 
@@ -196,13 +234,17 @@
                     {{-- Logout --}}
                     <div class="border-t border-slate-100 p-2">
 
-                        <form action="{{ url('/logout') }}" method="POST">
+                        <form action="{{ route('logout') }}" method="POST">
                             @csrf
 
                             <button type="submit"
-                                class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-rose-500 transition hover:bg-rose-50">
+                                class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-rose-500 transition hover:bg-rose-50">
 
-                                <span class="w-5 text-center">↪</span>
+                                <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M10 17l5-5-5-5m5 5H3m9-9h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"
+                                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+
                                 Log Out
 
                             </button>
@@ -211,7 +253,9 @@
                     </div>
 
                 </div>
+
             </details>
+
 
         {{-- ========================================== --}}
         {{-- GUEST NAVBAR                               --}}
