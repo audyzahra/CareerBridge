@@ -12,6 +12,7 @@ use App\Http\Controllers\SuperAdmin\UserController;
 use App\Http\Controllers\SuperAdmin\OrganizerController;
 use App\Http\Controllers\SuperAdmin\OpportunityController;
 
+use App\Http\Controllers\Organizer\OrganizerOpportunityController;
 use App\Http\Controllers\Organizer\OrganizerProfileController;
 use App\Http\Controllers\Organizer\OrganizerAccountSettingsController;
 
@@ -170,7 +171,46 @@ Route::prefix('organizer')
             return view('organizer.opportunities.edit');
         })->name('opportunities.edit');
 
+        // ======================================
+        // MY OPPORTUNITIES
+        // ======================================
 
+        // Display all opportunities
+        Route::get('/opportunities', [
+            OrganizerOpportunityController::class,
+            'index'
+        ])->name('opportunities.index');
+
+        // Show create opportunity form
+        Route::get('/opportunities/create', [
+            OrganizerOpportunityController::class,
+            'create'
+        ])->name('opportunities.create');
+
+        // Store new opportunity
+        Route::post('/opportunities', [
+            OrganizerOpportunityController::class,
+            'store'
+        ])->name('opportunities.store');
+
+        // Show edit opportunity form
+        Route::get('/opportunities/{opportunity}/edit', [
+            OrganizerOpportunityController::class,
+            'edit'
+        ])->name('opportunities.edit');
+
+        // Update existing opportunity
+        Route::put('/opportunities/{opportunity}', [
+            OrganizerOpportunityController::class,
+            'update'
+        ])->name('opportunities.update');
+
+        // Delete opportunity
+        Route::delete('/opportunities/{opportunity}', [
+            OrganizerOpportunityController::class,
+            'destroy'
+        ])->name('opportunities.destroy');
+        
         // ======================================
         // APPLICANT MANAGEMENT
         // ======================================
