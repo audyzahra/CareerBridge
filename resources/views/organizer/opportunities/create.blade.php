@@ -1,4 +1,3 @@
-
 @extends('layouts.organizer')
 
 @section('title', 'Add Opportunity - CareerBridge')
@@ -8,394 +7,351 @@
 <div class="space-y-8">
 
     {{-- PAGE HEADER --}}
-    <div class="relative overflow-hidden rounded-3xl border border-[#D5E8F7]
+    <div class="rounded-3xl border border-[#D5E8F7]
         bg-gradient-to-r from-[#DCEEFF] via-[#E5F1FC] to-[#EDF6FC]
         p-6 shadow-sm sm:p-8">
 
-        <div class="pointer-events-none absolute -right-10 -top-16
-            h-52 w-52 rounded-full bg-white/30"></div>
+        <a href="{{ route('organizer.opportunities.index') }}"
+            class="text-xs font-semibold text-[#6286A3] hover:text-[#397DAE]">
+            ← Back to My Opportunities
+        </a>
 
-        <div class="pointer-events-none absolute -bottom-20 right-32
-            h-40 w-40 rounded-full bg-[#A9D4F2]/20"></div>
+        <p class="mt-5 inline-flex rounded-full border border-[#B9D9F1]
+            bg-white/70 px-3 py-1.5 text-xs font-bold tracking-wide
+            text-[#47799F]">
+            ORGANIZER PORTAL
+        </p>
 
-        <div class="relative">
+        <h1 class="mt-4 text-2xl font-extrabold text-[#294D6B] sm:text-3xl">
+            Add New Opportunity
+        </h1>
 
-            <a href="{{ route('organizer.opportunities.index') }}"
-                class="inline-flex items-center gap-2 text-xs font-semibold
-                text-[#6286A3] transition hover:text-[#397DAE]">
+        <p class="mt-2 max-w-xl text-sm text-[#58758D]">
+            Share scholarship, internship, competition, and training
+            opportunities with students.
+        </p>
 
-                <span>←</span>
-                Back to My Opportunities
-            </a>
-
-            <div class="mt-5 inline-flex items-center gap-2 rounded-full
-                border border-[#B9D9F1] bg-white/70 px-3 py-1.5">
-
-                <span class="h-2 w-2 rounded-full bg-[#65B5E8]"></span>
-
-                <span class="text-xs font-bold tracking-wide text-[#47799F]">
-                    ORGANIZER PORTAL
-                </span>
-
-            </div>
-
-            <h1 class="mt-4 text-2xl font-extrabold tracking-tight
-                text-[#294D6B] sm:text-3xl">
-                Add New Opportunity
-            </h1>
-
-            <p class="mt-2 max-w-xl text-sm leading-relaxed text-[#58758D]">
-                Share scholarship, internship, competition, and training opportunities
-                to help students develop their potential.
-            </p>
-
-        </div>
     </div>
 
 
-    {{-- FORM LAYOUT --}}
-    <div class="grid grid-cols-1 items-start gap-6 xl:grid-cols-3">
+    {{-- VALIDATION ERRORS --}}
+    @if ($errors->any())
+
+        <div class="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+
+            <p class="font-bold">
+                Please correct the following errors:
+            </p>
+
+            <ul class="mt-2 list-inside list-disc">
+
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+
+            </ul>
+
+        </div>
+
+    @endif
+
+
+    {{-- FORM --}}
+    <form id="opportunityForm"
+        action="{{ route('organizer.opportunities.store') }}"
+        method="POST"
+        enctype="multipart/form-data"
+        class="grid grid-cols-1 items-start gap-6 xl:grid-cols-3">
+
+        @csrf
+
 
         {{-- MAIN FORM --}}
         <div class="space-y-6 xl:col-span-2">
 
-            <form action="#" method="POST" enctype="multipart/form-data"
-                class="space-y-6">
 
-                @csrf
+            {{-- BASIC INFORMATION --}}
+            <section class="rounded-2xl border border-[#E0EAF2]
+                bg-white shadow-sm">
 
-                {{-- BASIC INFORMATION --}}
-                <div class="overflow-hidden rounded-2xl border border-[#E0EAF2]
-                    bg-white shadow-sm">
+                <div class="border-b border-slate-100 px-6 py-5">
 
-                    <div class="border-b border-slate-100 px-6 py-5">
+                    <h2 class="font-bold text-[#304F6B]">
+                        Opportunity Information
+                    </h2>
 
-                        <div class="flex items-center gap-3">
+                    <p class="mt-1 text-xs text-slate-400">
+                        Enter the basic information about the opportunity.
+                    </p>
 
-                            <div class="flex h-10 w-10 items-center justify-center
-                                rounded-xl bg-sky-100 text-lg text-sky-600">
-                                ✦
-                            </div>
+                </div>
 
-                            <div>
-                                <h2 class="font-bold text-[#304F6B]">
-                                    Opportunity Information
-                                </h2>
 
-                                <p class="mt-1 text-xs text-slate-400">
-                                    Enter the basic information about the opportunity you are creating.
-                                </p>
-                            </div>
+                <div class="space-y-5 p-6">
 
-                        </div>
+                    {{-- TITLE --}}
+                    <div>
+
+                        <label class="mb-2 block text-sm font-semibold text-[#456783]">
+                            Opportunity Title
+                            <span class="text-rose-500">*</span>
+                        </label>
+
+                        <input type="text"
+                            name="title"
+                            value="{{ old('title') }}"
+                            required
+                            maxlength="255"
+                            placeholder="Example: National Business Plan Competition 2026"
+                            class="w-full rounded-xl border border-[#DCE8F1]
+                            px-4 py-3 text-sm outline-none
+                            focus:border-[#78B8E3]">
+
+                        @error('title')
+                            <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                        @enderror
+
                     </div>
 
 
-                    <div class="space-y-5 p-6">
+                    {{-- CATEGORY AND LOCATION --}}
+                    <div class="grid gap-5 sm:grid-cols-2">
 
-                        {{-- Title --}}
                         <div>
-                            <label class="mb-2 block text-sm font-semibold
-                                text-[#456783]">
-                                Opportunity Title
+
+                            <label class="mb-2 block text-sm font-semibold text-[#456783]">
+                                Opportunity Category
                                 <span class="text-rose-500">*</span>
+                            </label>
+
+                            <select name="category"
+                                required
+                                class="w-full rounded-xl border border-[#DCE8F1]
+                                bg-white px-4 py-3 text-sm">
+
+                                <option value="">Select Category</option>
+
+                                @foreach([
+                                    'scholarship' => 'Scholarship',
+                                    'internship' => 'Internship',
+                                    'competition' => 'Competition',
+                                    'training' => 'Training'
+                                ] as $value => $label)
+
+                                    <option value="{{ $value }}"
+                                        @selected(old('category') === $value)>
+                                        {{ $label }}
+                                    </option>
+
+                                @endforeach
+
+                            </select>
+
+                            @error('category')
+                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                            @enderror
+
+                        </div>
+
+
+                        <div>
+
+                            <label class="mb-2 block text-sm font-semibold text-[#456783]">
+                                Location
                             </label>
 
                             <input type="text"
-                                name="title"
-                                placeholder="Example: National Business Plan Competition 2026"
+                                name="location"
+                                value="{{ old('location') }}"
+                                placeholder="Example: Jakarta / Online"
                                 class="w-full rounded-xl border border-[#DCE8F1]
-                                bg-white px-4 py-3 text-sm text-slate-700
-                                outline-none transition placeholder:text-slate-300
-                                focus:border-[#78B8E3] focus:ring-2 focus:ring-sky-100">
-                        </div>
+                                px-4 py-3 text-sm">
 
-
-                        {{-- Category & Location --}}
-                        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-
-                            <div>
-                                <label class="mb-2 block text-sm font-semibold
-                                    text-[#456783]">
-                                    Opportunity Category
-                                    <span class="text-rose-500">*</span>
-                                </label>
-
-                                <select name="category"
-                                    class="w-full rounded-xl border border-[#DCE8F1]
-                                    bg-white px-4 py-3 text-sm text-slate-600
-                                    outline-none focus:border-[#78B8E3]">
-
-                                    <option value="">Select Category</option>
-                                    <option value="scholarship">Scholarship</option>
-                                    <option value="internship">Internship</option>
-                                    <option value="competition">Competition</option>
-                                    <option value="training">Training</option>
-
-                                </select>
-                            </div>
-
-
-                            <div>
-                                <label class="mb-2 block text-sm font-semibold
-                                    text-[#456783]">
-                                    Location
-                                </label>
-
-                                <input type="text"
-                                    name="location"
-                                    placeholder="Example: Jakarta / Online"
-                                    class="w-full rounded-xl border border-[#DCE8F1]
-                                    bg-white px-4 py-3 text-sm text-slate-700
-                                    outline-none placeholder:text-slate-300
-                                    focus:border-[#78B8E3]">
-                            </div>
+                            @error('location')
+                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                            @enderror
 
                         </div>
 
+                    </div>
 
-                        {{-- Description --}}
-                        <div>
-                            <label class="mb-2 block text-sm font-semibold
-                                text-[#456783]">
-                                Opportunity Description
-                                <span class="text-rose-500">*</span>
-                            </label>
 
-                            <textarea name="description"
-                                rows="6"
-                                placeholder="Provide complete information about this opportunity..."
-                                class="w-full resize-y rounded-xl border border-[#DCE8F1]
-                                bg-white px-4 py-3 text-sm leading-relaxed
-                                text-slate-700 outline-none placeholder:text-slate-300
-                                focus:border-[#78B8E3] focus:ring-2 focus:ring-sky-100"></textarea>
+                    {{-- DESCRIPTION --}}
+                    <div>
 
-                            <p class="mt-2 text-xs text-slate-400">
-                                Provide a clear description so students can understand this opportunity.
-                            </p>
-                        </div>
+                        <label class="mb-2 block text-sm font-semibold text-[#456783]">
+                            Opportunity Description
+                            <span class="text-rose-500">*</span>
+                        </label>
+
+                        <textarea name="description"
+                            rows="6"
+                            required
+                            placeholder="Provide complete information about this opportunity..."
+                            class="w-full rounded-xl border border-[#DCE8F1]
+                            px-4 py-3 text-sm outline-none
+                            focus:border-[#78B8E3]">{{ old('description') }}</textarea>
+
+                        @error('description')
+                            <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                        @enderror
 
                     </div>
 
                 </div>
 
-
-                {{-- REQUIREMENTS & BENEFITS --}}
-                <div class="overflow-hidden rounded-2xl border border-[#E0EAF2]
-                    bg-white shadow-sm">
-
-                    <div class="border-b border-slate-100 px-6 py-5">
-
-                        <div class="flex items-center gap-3">
-
-                            <div class="flex h-10 w-10 items-center justify-center
-                                rounded-xl bg-violet-100 text-lg text-violet-600">
-                                ♙
-                            </div>
-
-                            <div>
-                                <h2 class="font-bold text-[#304F6B]">
-                                    Requirements & Benefits
-                                </h2>
-
-                                <p class="mt-1 text-xs text-slate-400">
-                                    Specify participant criteria and the benefits they will receive.
-                                </p>
-                            </div>
-
-                        </div>
-
-                    </div>
+            </section>
 
 
-                    <div class="space-y-5 p-6">
+            {{-- REQUIREMENTS AND BENEFITS --}}
+            <section class="rounded-2xl border border-[#E0EAF2]
+                bg-white shadow-sm">
 
-                        {{-- Requirements --}}
+                <div class="border-b border-slate-100 px-6 py-5">
+                    <h2 class="font-bold text-[#304F6B]">
+                        Requirements & Benefits
+                    </h2>
+                </div>
+
+                <div class="space-y-5 p-6">
+
+                    @foreach([
+                        'requirements' => 'Requirements',
+                        'eligibility' => 'Eligibility Criteria',
+                        'benefits' => 'Benefits'
+                    ] as $field => $label)
+
                         <div>
-                            <label class="mb-2 block text-sm font-semibold
-                                text-[#456783]">
-                                Requirements
+
+                            <label class="mb-2 block text-sm font-semibold text-[#456783]">
+                                {{ $label }}
                             </label>
 
-                            <textarea name="requirements"
+                            <textarea name="{{ $field }}"
                                 rows="4"
-                                placeholder="List the requirements participants must fulfill..."
-                                class="w-full resize-y rounded-xl border border-[#DCE8F1]
-                                bg-white px-4 py-3 text-sm leading-relaxed
-                                text-slate-700 outline-none placeholder:text-slate-300
-                                focus:border-[#78B8E3]"></textarea>
+                                class="w-full rounded-xl border border-[#DCE8F1]
+                                px-4 py-3 text-sm outline-none
+                                focus:border-[#78B8E3]">{{ old($field) }}</textarea>
+
+                            @error($field)
+                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                            @enderror
+
                         </div>
 
-
-                        {{-- Eligibility --}}
-                        <div>
-                            <label class="mb-2 block text-sm font-semibold
-                                text-[#456783]">
-                                Eligibility Criteria
-                            </label>
-
-                            <textarea name="eligibility"
-                                rows="4"
-                                placeholder="Example: Active Diploma/Bachelor's students from universities across Indonesia..."
-                                class="w-full resize-y rounded-xl border border-[#DCE8F1]
-                                bg-white px-4 py-3 text-sm leading-relaxed
-                                text-slate-700 outline-none placeholder:text-slate-300
-                                focus:border-[#78B8E3]"></textarea>
-                        </div>
-
-
-                        {{-- Benefits --}}
-                        <div>
-                            <label class="mb-2 block text-sm font-semibold
-                                text-[#456783]">
-                                Benefits
-                            </label>
-
-                            <textarea name="benefits"
-                                rows="4"
-                                placeholder="Describe the benefits participants will receive..."
-                                class="w-full resize-y rounded-xl border border-[#DCE8F1]
-                                bg-white px-4 py-3 text-sm leading-relaxed
-                                text-slate-700 outline-none placeholder:text-slate-300
-                                focus:border-[#78B8E3]"></textarea>
-                        </div>
-
-                    </div>
+                    @endforeach
 
                 </div>
 
-
-                {{-- REGISTRATION INFORMATION --}}
-                <div class="overflow-hidden rounded-2xl border border-[#E0EAF2]
-                    bg-white shadow-sm">
-
-                    <div class="border-b border-slate-100 px-6 py-5">
-
-                        <div class="flex items-center gap-3">
-
-                            <div class="flex h-10 w-10 items-center justify-center
-                                rounded-xl bg-emerald-100 text-lg text-emerald-600">
-                                ◷
-                            </div>
-
-                            <div>
-                                <h2 class="font-bold text-[#304F6B]">
-                                    Registration Information
-                                </h2>
-
-                                <p class="mt-1 text-xs text-slate-400">
-                                    Set the registration period and opportunity registration link.
-                                </p>
-                            </div>
-
-                        </div>
-
-                    </div>
+            </section>
 
 
-                    <div class="space-y-5 p-6">
+            {{-- REGISTRATION INFORMATION --}}
+            <section class="rounded-2xl border border-[#E0EAF2]
+                bg-white shadow-sm">
 
-                        {{-- Registration Dates --}}
-                        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <div class="border-b border-slate-100 px-6 py-5">
+                    <h2 class="font-bold text-[#304F6B]">
+                        Registration Information
+                    </h2>
+                </div>
+
+                <div class="space-y-5 p-6">
+
+                    <div class="grid gap-5 sm:grid-cols-2">
+
+                        @foreach([
+                            'registration_start' => 'Registration Start Date',
+                            'registration_deadline' => 'Registration Deadline'
+                        ] as $field => $label)
 
                             <div>
-                                <label class="mb-2 block text-sm font-semibold
-                                    text-[#456783]">
-                                    Registration Start Date
+
+                                <label class="mb-2 block text-sm font-semibold text-[#456783]">
+                                    {{ $label }}
                                 </label>
 
                                 <input type="date"
-                                    name="registration_start"
+                                    name="{{ $field }}"
+                                    value="{{ old($field) }}"
                                     class="w-full rounded-xl border border-[#DCE8F1]
-                                    bg-white px-4 py-3 text-sm text-slate-600
-                                    outline-none focus:border-[#78B8E3]">
+                                    px-4 py-3 text-sm">
+
+                                @error($field)
+                                    <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                                @enderror
+
                             </div>
 
+                        @endforeach
 
-                            <div>
-                                <label class="mb-2 block text-sm font-semibold
-                                    text-[#456783]">
-                                    Registration Deadline
-                                </label>
-
-                                <input type="date"
-                                    name="registration_deadline"
-                                    class="w-full rounded-xl border border-[#DCE8F1]
-                                    bg-white px-4 py-3 text-sm text-slate-600
-                                    outline-none focus:border-[#78B8E3]">
-                            </div>
-
-                        </div>
+                    </div>
 
 
-                        {{-- Registration URL --}}
-                        <div>
-                            <label class="mb-2 block text-sm font-semibold
-                                text-[#456783]">
-                                Registration Link
-                            </label>
+                    <div>
 
-                            <input type="url"
-                                name="registration_url"
-                                placeholder="https://example.com/register"
-                                class="w-full rounded-xl border border-[#DCE8F1]
-                                bg-white px-4 py-3 text-sm text-slate-700
-                                outline-none placeholder:text-slate-300
-                                focus:border-[#78B8E3]">
+                        <label class="mb-2 block text-sm font-semibold text-[#456783]">
+                            Registration Link
+                        </label>
 
-                            <p class="mt-2 text-xs text-slate-400">
-                                Enter an external link for participant registration.
-                            </p>
-                        </div>
+                        <input type="url"
+                            name="registration_url"
+                            value="{{ old('registration_url') }}"
+                            placeholder="https://example.com/register"
+                            class="w-full rounded-xl border border-[#DCE8F1]
+                            px-4 py-3 text-sm">
+
+                        @error('registration_url')
+                            <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                        @enderror
 
                     </div>
 
                 </div>
 
+            </section>
 
-                {{-- ACTION BUTTONS --}}
-                <div class="flex flex-col-reverse justify-end gap-3 sm:flex-row">
 
-                    <a href="{{ route('organizer.opportunities.index') }}"
-                        class="inline-flex items-center justify-center rounded-xl
-                        border border-[#DCE8F1] bg-white px-6 py-3 text-sm
-                        font-bold text-[#668097] transition hover:bg-slate-50">
-                        Cancel
-                    </a>
+            {{-- ACTION BUTTONS --}}
+            <div class="flex flex-col-reverse justify-end gap-3 sm:flex-row">
 
-                    <button type="button"
-                        onclick="alert('The save feature will be enabled once the backend is available.')"
-                        class="inline-flex items-center justify-center gap-2
-                        rounded-xl border border-[#B9D9F1] bg-[#EDF6FC]
-                        px-6 py-3 text-sm font-bold text-[#5289B5]
-                        transition hover:bg-[#DCEEFF]">
+                <a href="{{ route('organizer.opportunities.index') }}"
+                    class="rounded-xl border border-[#DCE8F1] bg-white
+                    px-6 py-3 text-center text-sm font-bold text-[#668097]">
+                    Cancel
+                </a>
 
-                        Save as Draft
-                    </button>
+                <button type="submit"
+                    name="status"
+                    value="draft"
+                    class="rounded-xl border border-[#B9D9F1]
+                    bg-[#EDF6FC] px-6 py-3 text-sm font-bold text-[#5289B5]">
 
-                    <button type="button"
-                        onclick="alert('The publishing feature will be enabled once the backend is available.')"
-                        class="inline-flex items-center justify-center gap-2
-                        rounded-xl bg-[#65A9D8] px-6 py-3 text-sm font-bold
-                        text-white shadow-md shadow-[#8CBFE2]/30
-                        transition hover:bg-[#5599C9]">
+                    Save as Draft
 
-                        <span>✓</span>
-                        Publish
-                    </button>
+                </button>
 
-                </div>
+                <button type="submit"
+                    name="status"
+                    value="published"
+                    class="rounded-xl bg-[#65A9D8] px-6 py-3
+                    text-sm font-bold text-white hover:bg-[#5599C9]">
 
-            </form>
+                    Publish Opportunity
+
+                </button>
+
+            </div>
 
         </div>
 
 
-        {{-- SIDEBAR INFORMATION --}}
-        <div class="space-y-6">
+        {{-- SIDEBAR --}}
+        <aside class="space-y-6">
 
-            {{-- Poster Upload --}}
-            <div class="overflow-hidden rounded-2xl border border-[#E0EAF2]
+
+            {{-- POSTER UPLOAD --}}
+            <section class="rounded-2xl border border-[#E0EAF2]
                 bg-white shadow-sm">
 
                 <div class="border-b border-slate-100 px-5 py-4">
@@ -405,7 +361,7 @@
                     </h2>
 
                     <p class="mt-1 text-xs text-slate-400">
-                        Upload an opportunity promotional image.
+                        Upload a promotional image.
                     </p>
 
                 </div>
@@ -416,41 +372,40 @@
                         class="flex cursor-pointer flex-col items-center
                         justify-center rounded-2xl border-2 border-dashed
                         border-[#C9DFEF] bg-[#F8FBFE] px-4 py-10
-                        text-center transition hover:border-[#78B8E3]
-                        hover:bg-[#EFF7FD]">
+                        text-center hover:border-[#78B8E3]">
 
-                        <div class="flex h-14 w-14 items-center justify-center
-                            rounded-2xl bg-[#DCEEFF] text-2xl text-[#5799CE]">
-                            ↑
-                        </div>
+                        <span class="text-3xl text-[#5799CE]">↑</span>
 
-                        <p class="mt-4 text-sm font-bold text-[#456783]">
+                        <span class="mt-4 text-sm font-bold text-[#456783]">
                             Click to upload poster
-                        </p>
+                        </span>
 
-                        <p class="mt-2 text-xs text-slate-400">
-                            PNG, JPG, or JPEG
-                        </p>
-
-                        <p class="mt-1 text-xs text-slate-400">
-                            Recommended aspect ratio: 4:5
-                        </p>
+                        <span class="mt-2 text-xs text-slate-400">
+                            PNG or JPG · Maximum 2 MB
+                        </span>
 
                     </label>
+
 
                     <input type="file"
                         id="poster"
                         name="poster_path"
+                        form="opportunityForm"
                         accept="image/png,image/jpeg"
                         class="hidden">
+
+
+                    @error('poster_path')
+                        <p class="mt-2 text-xs text-red-500">{{ $message }}</p>
+                    @enderror
+
 
                     <div id="posterPreview" class="mt-4 hidden">
 
                         <img id="previewImage"
                             src=""
-                            alt="Poster Preview"
-                            class="max-h-64 w-full rounded-xl border
-                            border-slate-100 object-contain">
+                            alt="Poster preview"
+                            class="max-h-64 w-full rounded-xl object-contain">
 
                         <p id="fileName"
                             class="mt-2 truncate text-xs text-slate-400">
@@ -460,136 +415,84 @@
 
                 </div>
 
-            </div>
+            </section>
 
 
-            {{-- Publication Information --}}
-            <div class="rounded-2xl border border-[#CFE3F3]
+            {{-- PUBLICATION INFORMATION --}}
+            <section class="rounded-2xl border border-[#CFE3F3]
                 bg-gradient-to-br from-[#E5F2FC] to-[#F2F8FD] p-5">
 
-                <div class="flex items-center gap-2">
-
-                    <div class="flex h-9 w-9 items-center justify-center
-                        rounded-xl bg-white text-[#5799CE]">
-                        ✦
-                    </div>
-
-                    <h3 class="text-sm font-bold text-[#426D8D]">
-                        Publication Information
-                    </h3>
-
-                </div>
+                <h3 class="text-sm font-bold text-[#426D8D]">
+                    Publication Information
+                </h3>
 
                 <div class="mt-4 space-y-3 text-xs leading-relaxed text-[#66849D]">
 
                     <p>
-                        <span class="font-bold text-[#426D8D]">
-                            Save as Draft
-                        </span>
-                        to save an opportunity without making it publicly visible.
+                        <strong>Save as Draft</strong>
+                        saves the opportunity without publishing it.
                     </p>
 
                     <p>
-                        <span class="font-bold text-[#426D8D]">
-                            Publish
-                        </span>
-                        to submit the opportunity for display to students.
+                        <strong>Publish Opportunity</strong>
+                        submits it for display to students.
                     </p>
 
                     <p>
-                        The opportunity verification status will be determined through a review process.
+                        New opportunities are assigned a pending verification status.
                     </p>
 
                 </div>
 
-            </div>
+            </section>
 
+        </aside>
 
-            {{-- Tips --}}
-            <div class="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-
-                <div class="flex items-center gap-2">
-
-                    <span class="text-xl">💡</span>
-
-                    <h3 class="text-sm font-bold text-[#304F6B]">
-                        Tips for Creating Opportunities
-                    </h3>
-
-                </div>
-
-                <ul class="mt-4 space-y-3 text-xs leading-relaxed text-slate-500">
-
-                    <li class="flex gap-2">
-                        <span class="text-[#65A9D8]">✓</span>
-                        Use a clear and attractive opportunity title.
-                    </li>
-
-                    <li class="flex gap-2">
-                        <span class="text-[#65A9D8]">✓</span>
-                        Explain participant requirements in detail.
-                    </li>
-
-                    <li class="flex gap-2">
-                        <span class="text-[#65A9D8]">✓</span>
-                        Provide an accurate registration deadline.
-                    </li>
-
-                    <li class="flex gap-2">
-                        <span class="text-[#65A9D8]">✓</span>
-                        Use an informative and high-quality poster.
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </div>
-
-    </div>
+    </form>
 
 </div>
 
 
 {{-- POSTER PREVIEW --}}
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
 
-        const posterInput = document.getElementById('poster');
-        const previewContainer = document.getElementById('posterPreview');
-        const previewImage = document.getElementById('previewImage');
-        const fileName = document.getElementById('fileName');
+    const input = document.getElementById('poster');
+    const preview = document.getElementById('posterPreview');
+    const image = document.getElementById('previewImage');
+    const fileName = document.getElementById('fileName');
 
-        let currentPreviewUrl = null;
+    let previewUrl = null;
 
-        posterInput.addEventListener('change', function () {
+    input?.addEventListener('change', function () {
 
-            const file = this.files[0];
+        const file = this.files?.[0];
 
-            if (!file) {
-                return;
-            }
+        if (!file) return;
 
-            if (!['image/jpeg', 'image/png'].includes(file.type)) {
-                alert('Please select a PNG or JPG file.');
-                this.value = '';
-                return;
-            }
+        if (
+            !['image/jpeg', 'image/png'].includes(file.type) ||
+            file.size > 2 * 1024 * 1024
+        ) {
+            alert('Choose a PNG or JPG image no larger than 2 MB.');
+            this.value = '';
+            return;
+        }
 
-            if (currentPreviewUrl) {
-                URL.revokeObjectURL(currentPreviewUrl);
-            }
+        if (previewUrl) {
+            URL.revokeObjectURL(previewUrl);
+        }
 
-            currentPreviewUrl = URL.createObjectURL(file);
+        previewUrl = URL.createObjectURL(file);
 
-            previewImage.src = currentPreviewUrl;
-            fileName.textContent = file.name;
+        image.src = previewUrl;
+        fileName.textContent = file.name;
 
-            previewContainer.classList.remove('hidden');
-
-        });
+        preview.classList.remove('hidden');
 
     });
+
+});
 </script>
 
-@endsection
+@endsection 
