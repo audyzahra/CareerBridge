@@ -15,6 +15,12 @@ use App\Http\Controllers\SuperAdmin\OpportunityController;
 use App\Http\Controllers\Organizer\OrganizerProfileController;
 use App\Http\Controllers\Organizer\OrganizerAccountSettingsController;
 
+use App\Http\Controllers\Public\OpportunityController as PublicOpportunityController;
+
+use App\Http\Controllers\Student\StudentApplicationController;
+use App\Http\Controllers\Student\StudentProfileController;
+
+
 
 // ==========================================
 // HALAMAN UTAMA CAREERBRIDGE
@@ -40,14 +46,18 @@ Route::get('/', function () {
 // HALAMAN PUBLIK
 // ==========================================
 
-Route::get('/opportunities', function () {
-    return view('public.opportunities.index', [
-        'opportunities' => collect(),
-    ]);
-})->name('opportunities.index');
+// Explore Opportunities
+Route::get('/opportunities', [PublicOpportunityController::class, 'index'])
+    ->name('opportunities.index');
 
+// Opportunity Details
+Route::get('/opportunities/{slug}', [PublicOpportunityController::class, 'show'])
+    ->name('opportunities.show');
+
+// About Us
 Route::view('/about', 'public.about.index')
     ->name('about');
+
 
 
 // ==========================================
@@ -244,9 +254,7 @@ Route::prefix('student')
 
         // Explore Opportunities
         Route::get('/opportunities', function () {
-            return view('student.opportunities.index', [
-                'opportunities' => collect(),
-            ]);
+            return redirect()->route('opportunities.index');
         })->name('opportunities');
 
         // Saved Opportunities
@@ -255,9 +263,16 @@ Route::prefix('student')
         })->name('saved');
 
         // My Applications
-        Route::get('/applications', function () {
-            return view('student.applications.index');
-        })->name('applications');
+        // My Applications
+        Route::get('/applications', [
+            StudentApplicationController::class,
+            'index'
+        ])->name('applications');
+
+        Route::get('/applications/{id}', [
+            StudentApplicationController::class,
+            'show'
+        ])->name('applications.show');
 
         // Notifications
         Route::get('/notifications', function () {
@@ -265,7 +280,25 @@ Route::prefix('student')
         })->name('notifications');
 
         // My Profile
-        Route::view('/profile', 'student.profile.index')
-            ->name('profile');
+        Route::get('/profile', [
+            StudentProfileController::class,
+            'index'
+        ])->name('profile');
 
+        Route::put('/profile', [
+            StudentProfileController::class,
+            'update'
+        ])->name('profile.update');
+
+        // Application Form
+        Route::get('/opportunities/{slug}/apply', [
+            StudentApplicationController::class,
+            'create'
+        ])->name('opportunities.apply.create');
+
+        // Submit Application
+        Route::post('/opportunities/{slug}/apply', [
+            StudentApplicationController::class,
+            'store'
+        ])->name('opportunities.apply');
     });

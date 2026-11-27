@@ -78,4 +78,9 @@ class StudentProfile extends Model
             'matched_student_profile_id'
         );
     }
+
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
+    }
 }

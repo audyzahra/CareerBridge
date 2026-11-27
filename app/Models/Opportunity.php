@@ -15,6 +15,7 @@ class Opportunity extends Model
 
     protected $fillable = [
         'organizer_profile_id',
+        'opportunity_type_id',
         'title',
         'slug',
         'category',
@@ -70,5 +71,15 @@ class Opportunity extends Model
             VerificationLog::class,
             'opportunity_id'
         );
+    }
+
+    public function opportunityType(): BelongsTo
+    {
+        return $this->belongsTo(OpportunityType::class);
+    }
+
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
     }
 }

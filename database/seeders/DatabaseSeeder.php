@@ -49,6 +49,9 @@ class DatabaseSeeder extends Seeder
 
             // Verification
             VerificationLogSeeder::class,
+
+            OpportunityTypeSeeder::class,
+            OpportunityCategorySeeder::class,
         ]);
     }
 }
